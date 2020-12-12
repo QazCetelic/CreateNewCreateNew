@@ -1,5 +1,6 @@
 import glob
 import os
+import shutil
 from pathlib import Path
 
 #                          _  _           _                                __                    _                            _         _
@@ -9,7 +10,17 @@ from pathlib import Path
 # |___/ \___||_|    \___/ |_||_|      \__,_| \___/   \_/\_/  |_| |_|     |_|   \___/ |_|         \__| \___||_| |_| |_|| .__/ |_| \__,_| \__| \___||___/
 #                                                                                                         |_|
 
+__location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
 includeFiletype = False
+
+def copy_and_overwrite(from_path, to_path):
+    if os.path.exists(to_path):
+        shutil.rmtree(to_path)
+    shutil.copytree(from_path, to_path)
+
+
 def ask(question):
     user_input = input(f'{question} [y/n]: ').lower()
     if user_input == 'y':
@@ -22,20 +33,20 @@ def ask(question):
             return ask(question)
 
 def logo():
-print("""                     ,--.                       """)
-print("""   ,----..         ,--.'|                       """)
-print("""  /   /   \    ,--,:  : |                       """)
-print(""" |   :     :,`--.'`|  ' :                ,---,  """)
-print(""" .   |  ;. /|   :  :  | |            ,-+-. /  | """)
-print(""" .   ; /--` :   |   \ | :   ,---.   ,--.'|'   | """)
-print(""" ;   | ;    |   : '  '; |  /     \ |   |  ,"' | """)
-print(""" |   : |    '   ' ;.    ; /    / ' |   | /  | | """)
-print(""" .   | '___ |   | | \   |.    ' /  |   | |  | | """)
-print(""" '   ; : .'|'   : |  ; .''   ; :__ |   | |  |/  """)
-print(""" '   | '/  :|   | '`--'  '   | '.'||   | |--'   """)
-print(""" |   :    / '   : |      |   :    :|   |/       """)
-print("""  \   \ .'  ;   |.'       \   \  / '---'        """)
-print("""   `---`    '---'          `----'               """)
+    print("""                     ,--.                       """)
+    print("""   ,----..         ,--.'|                       """)
+    print("""  /   /   \    ,--,:  : |                       """)
+    print(""" |   :     :,`--.'`|  ' :                ,---,  """)
+    print(""" .   |  ;. /|   :  :  | |            ,-+-. /  | """)
+    print(""" .   ; /--` :   |   \ | :   ,---.   ,--.'|'   | """)
+    print(""" ;   | ;    |   : '  '; |  /     \ |   |  ,"' | """)
+    print(""" |   : |    '   ' ;.    ; /    / ' |   | /  | | """)
+    print(""" .   | '___ |   | | \   |.    ' /  |   | |  | | """)
+    print(""" '   ; : .'|'   : |  ; .''   ; :__ |   | |  |/  """)
+    print(""" '   | '/  :|   | '`--'  '   | '.'||   | |--'   """)
+    print(""" |   :    / '   : |      |   :    :|   |/       """)
+    print("""  \   \ .'  ;   |.'       \   \  / '---'        """)
+    print("""   `---`    '---'          `----'               """)
                                                
 
 folder_path = str(Path.home()) + "/.local/share/templates/"
@@ -69,6 +80,12 @@ def add(name, file_type, icon, group=""):
 
 logo()
 
+if os.path.isdir(os.path.join(__location__, 'template-files')):
+    print(f'Moved template files to {folder_path}')
+    copy_and_overwrite(os.path.join(__location__, 'template-files'), folder_path + "template-files")
+else:
+    print("No template folder found here, nothing is moved")
+
 if ask("Replace old .desktop files"):
     if len(files) != 0:
         print("Removing old template .desktop files")
@@ -83,6 +100,7 @@ if ask("Replace old .desktop files"):
                 if isAutomaticallyAdded:
                     os.remove(template)
                     print(f'Removed {os.path.basename(template)}')
+                    
 includeFiletype = ask("Include file type in menu?")
 
 #  _____                          _         _
