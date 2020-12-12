@@ -123,8 +123,9 @@ if ask("Would you like to create templates for the open document formats which a
     add("Spreadsheet", "ods", "libreoffice-spreadsheet", "libreoffice")
     add("Drawing", "odg", "libreoffice-drawing", "libreoffice")
     add("Formula", "odf", "libreoffice-formula", "libreoffice")
+    add("Database", "odb", "libreoffice-database", "libreoffice")
 # Microsoft Office
-if ask("Would you like to create templates for Microsoft office"):
+if ask("Would you like to create templates for Microsoft office?"):
     add("MS Word", "docx", "gnome-mime-application-msword", "msoffice")
     add("MS Powerpoint", "pptx", "gnome-mime-application-powerpoint", "msoffice")
     add("MS Excel", "xlsx", "gnome-mime-application-msexcel", "msoffice")
