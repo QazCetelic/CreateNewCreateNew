@@ -9,4 +9,4 @@ The .template-files contains template files and should be placed at "/home/qaz/.
 - Inkscape file 
 - Markdown
 
-[![Thumbnail](https://imgur.com/a/8drPEFA)](http://www.youtube.com/watch?v=sksK3e-YnUk "Thumbnail")
+[![Thumbnail](https://i.imgur.com/5MCRanx.png)](http://www.youtube.com/watch?v=sksK3e-YnUk "Thumbnail")
