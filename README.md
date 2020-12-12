@@ -8,3 +8,5 @@ The .template-files contains template files and should be placed at "/home/qaz/.
 - Templates for both Libre and Microsoft Office files
 - Inkscape file 
 - Markdown
+
+[![Video showcase]({https://i9.ytimg.com/vi_webp/sksK3e-YnUk/mqdefault.webp?time=1607808300000&sqp=CKzq1P4F&rs=AOn4CLBgrtqp4dWLVMrHASIeIcPaJTCsnw})]({https://youtu.be/sksK3e-YnUk} "Video Showcase")
