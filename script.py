@@ -3,17 +3,12 @@ import os
 import shutil
 from pathlib import Path
 
-#                          _  _           _                                __                    _                            _         _
-#  ___   ___  _ __   ___  | || |       __| |  ___  __      __ _ __        / _|  ___   _ __      | |_   ___  _ __ ___   _ __  | |  __ _ | |_   ___  ___
-# / __| / __|| '__| / _ \ | || |      / _` | / _ \ \ \ /\ / /| '_ \      | |_  / _ \ | '__|     | __| / _ \| '_ ` _ \ | '_ \ | | / _` || __| / _ \/ __|
-# \__ \| (__ | |   | (_) || || |     | (_| || (_) | \ V  V / | | | |     |  _|| (_) || |        | |_ |  __/| | | | | || |_) || || (_| || |_ |  __/\__ \
-# |___/ \___||_|    \___/ |_||_|      \__,_| \___/   \_/\_/  |_| |_|     |_|   \___/ |_|         \__| \___||_| |_| |_|| .__/ |_| \__,_| \__| \___||___/
-#                                                                                                         |_|
+# CreateNewCreateNew
+# Easily and quickly create new entries into the "Create New" file menu on Linux desktops.
+# Scroll down templates section to see add your own templates.
 
-__location__ = os.path.realpath(
-    os.path.join(os.getcwd(), os.path.dirname(__file__)))
+__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
-includeFiletype = False
 
 def copy_and_overwrite(from_path, to_path):
     if os.path.exists(to_path):
@@ -23,85 +18,90 @@ def copy_and_overwrite(from_path, to_path):
 
 def ask(question):
     user_input = input(f'{question} [y/n]: ').lower()
-    if user_input == 'y':
+    if user_input in ['y', 'yes']:
         return True
     else:
-        if user_input == 'n':
+        if user_input in ['n', 'no']:
             return False
         else:
             print("Invalid response, try again.")
             return ask(question)
 
+
 def logo():
     print("""                     ,--.                       """)
     print("""   ,----..         ,--.'|                       """)
-    print("""  /   /   \    ,--,:  : |                       """)
-    print(""" |   :     :,`--.'`|  ' :                ,---,  """)
-    print(""" .   |  ;. /|   :  :  | |            ,-+-. /  | """)
-    print(""" .   ; /--` :   |   \ | :   ,---.   ,--.'|'   | """)
-    print(""" ;   | ;    |   : '  '; |  /     \ |   |  ,"' | """)
-    print(""" |   : |    '   ' ;.    ; /    / ' |   | /  | | """)
-    print(""" .   | '___ |   | | \   |.    ' /  |   | |  | | """)
-    print(""" '   ; : .'|'   : |  ; .''   ; :__ |   | |  |/  """)
-    print(""" '   | '/  :|   | '`--'  '   | '.'||   | |--'   """)
-    print(""" |   :    / '   : |      |   :    :|   |/       """)
-    print("""  \   \ .'  ;   |.'       \   \  / '---'        """)
+    print("""  /   /   \    ,--,:  | |                       """)
+    print(""" |   |     :,`--.'`|  | |                ,---,  """)
+    print(""" |   |  .\ /|   |  |  | |            ,-+-. /  | """)
+    print(""" |   | /--` |   |   \ | |   ,---.   ,--.'|'   | """)
+    print(""" |   | |    |   | '  '; |  /     \ |   |  ,"| | """)
+    print(""" |   | |    |   ' ;.    | /    / ' |   | /  | | """)
+    print(""" |   | '___ |   | | \   |.    ' /  |   | |  | | """)
+    print(""" |   | | .'||   | |  ; .''   ; :__ |   | |  |/  """)
+    print(""" |   | '/  ||   | '`--'  '   | '.'||   | |--'   """)
+    print(""" |   |    / |   | |      |   |    :|   |/       """)
+    print("""  \   \ .'  |   |.'       \   \  / '---'        """)
     print("""   `---`    '---'          `----'               """)
-                                               
+
 
 folder_path = str(Path.home()) + "/.local/share/templates/"
 files = glob.glob(folder_path + "*.desktop")
 
+
 def add(name, file_type, icon, group=""):
-    lower_name = name.lower().replace(" ", "-")
-    desktop_file_path = folder_path + "/" + lower_name + "-template.desktop"
+    snake_case_name = name.lower().replace(" ", "-")
+    desktop_file_path = f'{folder_path}/{snake_case_name}-template.desktop'
     desktop_file = open(desktop_file_path, "w+")
 
+    # Write the template metadata file
     new_text = ""
-    def line(input):
-        nonlocal new_text
-        new_text += input + "\n"
 
-    line("[Desktop Entry]")
-    if includeFiletype:
-        line(f'Name={name}... (.{file_type})')
-    else:
-        line(f'Name={name}...')
-    line(f'Comment=Create a new {lower_name} file using the .{file_type} format.')
-    line("Type=Link")
+    def append_line(s):
+        nonlocal new_text
+        new_text += s + "\n"
+
+    append_line("[Desktop Entry]")
+    append_line(f'Name={name}...')
+    append_line(f'Comment=Create a new {snake_case_name} file using the .{file_type} format.')
+    append_line("Type=Link")
     if group == "":
-        line(f'URL=template-files/{lower_name}-template.{file_type}')
+        append_line(f'URL=template-files/{snake_case_name}-template.{file_type}')
     else:
-        line(f'URL=template-files/{group}/{lower_name}-template.{file_type}')
-    line(f'Icon={icon}')
-    line("generated=true")
+        append_line(f'URL=template-files/{group}/{snake_case_name}-template.{file_type}')
+    append_line(f'Icon={icon}')
+    append_line("generated=true")
+
     desktop_file.write(new_text)
     print(f'Created {os.path.basename(desktop_file_path)}')
 
+
 logo()
 
-if os.path.isdir(os.path.join(__location__, 'template-files')):
+template_files = os.path.join(__location__, 'template-files')
+if os.path.isdir(template_files):
     print(f'Moved template files to {folder_path}')
-    copy_and_overwrite(os.path.join(__location__, 'template-files'), folder_path + "template-files")
+    copy_and_overwrite(template_files, folder_path + "template-files")
 else:
     print("No template folder found here, nothing is moved")
 
-if ask("Replace old .desktop files"):
+if ask("Remove old generated .desktop files"):
+    # Check if there actually are any .desktop files
     if len(files) != 0:
         print("Removing old template .desktop files")
         for template in files:
             if not os.path.basename(template).startswith('.'):
                 text = open(template).read()
-
                 isAutomaticallyAdded = False
                 for line in text.splitlines():
                     if line == "generated=true":
                         isAutomaticallyAdded = True
+                        break
                 if isAutomaticallyAdded:
                     os.remove(template)
                     print(f'Removed {os.path.basename(template)}')
-                    
-includeFiletype = ask("Include file type in menu?")
+    else:
+        print("No template .desktop files found")
 
 #  _____                          _         _
 # |_   _|  ___  _ __ ___   _ __  | |  __ _ | |_   ___  ___
@@ -111,10 +111,10 @@ includeFiletype = ask("Include file type in menu?")
 #                         |_|
 
 # You can add your own templates, using the following format: add([Name], [File Type], [Icon], [Group: Optional])
-# Name: name used for the .desktop file and for the "Create New" menu
-# File Type: used for the link to the template file and for showing which type is used in the "Create New" menu
-# Icon: which icon should be used in the menu
-# Group: the submenu in the file templates folder
+# Name:         Name used for the .desktop file and for the "Create New" menu.
+# File Type:    Used for the link to the template file and for showing which type is used in the "Create New" menu.
+# Icon:         Which icon should be used in the menu.
+# Group:        The submenu in the file templates folder.
 
 # Open Document Formats
 if ask("Would you like to create templates for the open document formats which are usable for programs like Libre Office?"):
@@ -126,10 +126,12 @@ if ask("Would you like to create templates for the open document formats which a
     add("Database", "odb", "libreoffice-database", "libreoffice")
 # Microsoft Office
 if ask("Would you like to create templates for Microsoft office?"):
-    add("MS Word", "docx", "gnome-mime-application-msword", "msoffice")
+    add("MS Word©", "docx", "gnome-mime-application-msword", "msoffice")
     add("MS Powerpoint", "pptx", "gnome-mime-application-powerpoint", "msoffice")
     add("MS Excel", "xlsx", "gnome-mime-application-msexcel", "msoffice")
 # Markdown
 add("Markdown", "md", "text-markdown")
 # Vector Drawing (Inkscape)
 add("Vector Drawing", "svg", "draw-polygon")
+# Shell script
+add("Shell Script", "sh", "tab-new")
