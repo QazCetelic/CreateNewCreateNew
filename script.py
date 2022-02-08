@@ -117,7 +117,7 @@ if ask("Remove old generated .desktop files"):
 # Group:        The submenu in the file templates folder.
 
 # Open Document Formats
-if ask("Would you like to create templates for the open document formats which are usable for programs like Libre Office?"):
+if ask("Would you like to add templates for the open document formats which are used by programs like Libre Office?"):
     add("Document", "odt", "libreoffice-text", "libreoffice")
     add("Presentation", "odp", "libreoffice-presentation", "libreoffice")
     add("Spreadsheet", "ods", "libreoffice-spreadsheet", "libreoffice")
@@ -125,13 +125,13 @@ if ask("Would you like to create templates for the open document formats which a
     add("Formula", "odf", "libreoffice-formula", "libreoffice")
     add("Database", "odb", "libreoffice-database", "libreoffice")
 # Microsoft Office
-if ask("Would you like to create templates for Microsoft office?"):
-    add("MS Word©", "docx", "gnome-mime-application-msword", "msoffice")
-    add("MS Powerpoint", "pptx", "gnome-mime-application-powerpoint", "msoffice")
-    add("MS Excel", "xlsx", "gnome-mime-application-msexcel", "msoffice")
+if ask("Would you like to add templates for Microsoft office?"):
+    add("Microsoft Word", "docx", "x-office-document", "msoffice")
+    add("Microsoft Powerpoint", "pptx", "x-office-presentation", "msoffice")
+    add("Microsoft Excel", "xlsx", "x-office-spreadsheet", "msoffice")
 # Markdown
 add("Markdown", "md", "text-markdown")
 # Vector Drawing (Inkscape)
 add("Vector Drawing", "svg", "draw-polygon")
 # Shell script
-add("Shell Script", "sh", "tab-new")
+add("Shell Script", "sh", "utilities-terminal")
