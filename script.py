@@ -118,12 +118,12 @@ if ask("Remove old generated .desktop files"):
 
 # Open Document Formats
 if ask("Would you like to add templates for the open document formats which are used by programs like Libre Office?"):
-    add("Document", "odt", "libreoffice-text", "libreoffice")
-    add("Presentation", "odp", "libreoffice-presentation", "libreoffice")
-    add("Spreadsheet", "ods", "libreoffice-spreadsheet", "libreoffice")
-    add("Drawing", "odg", "libreoffice-drawing", "libreoffice")
-    add("Formula", "odf", "libreoffice-formula", "libreoffice")
-    add("Database", "odb", "libreoffice-database", "libreoffice")
+    add("Openoffice Document", "odt", "libreoffice-text", "libreoffice")
+    add("Openoffice Presentation", "odp", "libreoffice-presentation", "libreoffice")
+    add("Openoffice Spreadsheet", "ods", "libreoffice-spreadsheet", "libreoffice")
+    add("Openoffice Drawing", "odg", "libreoffice-drawing", "libreoffice")
+    add("Openoffice Formula", "odf", "libreoffice-formula", "libreoffice")
+    add("Openoffice Database", "odb", "libreoffice-database", "libreoffice")
 # Microsoft Office
 if ask("Would you like to add templates for Microsoft office?"):
     add("Microsoft Word", "docx", "x-office-document", "msoffice")
