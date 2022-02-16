@@ -124,14 +124,21 @@ if ask("Would you like to add templates for the open document formats which are 
     add("Openoffice Drawing", "odg", "libreoffice-drawing", "libreoffice")
     add("Openoffice Formula", "odf", "libreoffice-formula", "libreoffice")
     add("Openoffice Database", "odb", "libreoffice-database", "libreoffice")
+
 # Microsoft Office
 if ask("Would you like to add templates for Microsoft office?"):
     add("Microsoft Word", "docx", "x-office-document", "msoffice")
     add("Microsoft Powerpoint", "pptx", "x-office-presentation", "msoffice")
     add("Microsoft Excel", "xlsx", "x-office-spreadsheet", "msoffice")
+
 # Markdown
 add("Markdown", "md", "text-markdown")
 # Vector Drawing (Inkscape)
-add("Vector Drawing", "svg", "draw-polygon")
-# Shell script
-add("Shell Script", "sh", "utilities-terminal")
+add("Vector Drawing", "svg", "image-x-svg+xml")
+
+# Scripting
+if ask("Would you like to add templates for scripting?"):
+    # Shell script
+    add("Shell Script", "sh", "utilities-terminal")
+    # Python script
+    add("Python Script", "py", "text-x-python")
