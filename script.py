@@ -51,36 +51,33 @@ files = glob.glob(folder_path + "*.desktop")
 
 def add(name, file_type, icon, group=""):
     snake_case_name = name.lower().replace(" ", "-")
+
+    new_lines = []
+
+    new_lines += "[Desktop Entry]"
+    new_lines += f"Name={name}..."
+    new_lines += f"Comment=Create a new {snake_case_name} file using the .{file_type} format."
+    new_lines += "Type=Link"
+    if group == "":
+        new_lines += f"URL=template-files/{snake_case_name}-template.{file_type}"
+    else:
+        new_lines += f"URL=template-files/{group}/{snake_case_name}-template.{file_type}"
+    new_lines += f"Icon={icon}"
+    new_lines += "generated=true"
+
     desktop_file_path = f'{folder_path}/{snake_case_name}-template.desktop'
     desktop_file = open(desktop_file_path, "w+")
+    desktop_file.writelines(new_lines)
+    desktop_file.close()
 
-    # Write the template metadata file
-    new_text = ""
-
-    def append_line(s):
-        nonlocal new_text
-        new_text += s + "\n"
-
-    append_line("[Desktop Entry]")
-    append_line(f'Name={name}...')
-    append_line(f'Comment=Create a new {snake_case_name} file using the .{file_type} format.')
-    append_line("Type=Link")
-    if group == "":
-        append_line(f'URL=template-files/{snake_case_name}-template.{file_type}')
-    else:
-        append_line(f'URL=template-files/{group}/{snake_case_name}-template.{file_type}')
-    append_line(f'Icon={icon}')
-    append_line("generated=true")
-
-    desktop_file.write(new_text)
     print(f'Created {os.path.basename(desktop_file_path)}')
 
 
 logo()
 
-template_files = os.path.join(__location__, 'template-files')
+template_files = os.path.join(__location__, "template-files")
 if os.path.isdir(template_files):
-    print(f'Moved template files to {folder_path}')
+    print(f"Moved template files to {folder_path}")
     copy_and_overwrite(template_files, folder_path + "template-files")
 else:
     print("No template folder found here, nothing is moved")
@@ -91,15 +88,17 @@ if ask("Remove old generated .desktop files"):
         print("Removing old template .desktop files")
         for template in files:
             if not os.path.basename(template).startswith('.'):
-                text = open(template).read()
+                file = open(template, "r")
+                lines = file.readlines()
                 isAutomaticallyAdded = False
-                for line in text.splitlines():
+                for line in lines:
                     if line == "generated=true":
                         isAutomaticallyAdded = True
                         break
                 if isAutomaticallyAdded:
                     os.remove(template)
                     print(f'Removed {os.path.basename(template)}')
+                file.close()
     else:
         print("No template .desktop files found")
 
@@ -139,6 +138,6 @@ add("Vector Drawing", "svg", "image-x-svg+xml")
 # Scripting
 if ask("Would you like to add templates for scripting?"):
     # Shell script
-    add("Shell Script", "sh", "utilities-terminal")
+    add("Shell Script", "sh", "application-x-shellscript")
     # Python script
     add("Python Script", "py", "text-x-python")
