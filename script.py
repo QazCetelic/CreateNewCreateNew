@@ -52,22 +52,22 @@ files = glob.glob(folder_path + "*.desktop")
 def add(name, file_type, icon, group=""):
     snake_case_name = name.lower().replace(" ", "-")
 
-    new_lines = []
+    new_lines: [str] = []
 
-    new_lines += "[Desktop Entry]"
-    new_lines += f"Name={name}..."
-    new_lines += f"Comment=Create a new {snake_case_name} file using the .{file_type} format."
-    new_lines += "Type=Link"
+    new_lines.append("[Desktop Entry]")
+    new_lines.append(f"Name={name}...")
+    new_lines.append(f"Comment=Create a new {snake_case_name} file using the .{file_type} format.")
+    new_lines.append("Type=Link")
     if group == "":
-        new_lines += f"URL=template-files/{snake_case_name}-template.{file_type}"
+        new_lines.append(f"URL=template-files/{snake_case_name}-template.{file_type}")
     else:
-        new_lines += f"URL=template-files/{group}/{snake_case_name}-template.{file_type}"
-    new_lines += f"Icon={icon}"
-    new_lines += "generated=true"
+        new_lines.append(f"URL=template-files/{group}/{snake_case_name}-template.{file_type}")
+    new_lines.append(f"Icon={icon}")
+    new_lines.append("generated=true")
 
     desktop_file_path = f'{folder_path}/{snake_case_name}-template.desktop'
     desktop_file = open(desktop_file_path, "w+")
-    desktop_file.writelines(new_lines)
+    desktop_file.write('\n'.join(new_lines))
     desktop_file.close()
 
     print(f'Created {os.path.basename(desktop_file_path)}')
