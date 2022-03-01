@@ -16,16 +16,26 @@ def copy_and_overwrite(from_path, to_path):
     shutil.copytree(from_path, to_path)
 
 
+always_true = False
+
 def ask(question):
-    user_input = input(f'{question} [y/n]: ').lower()
-    if user_input in ['y', 'yes']:
+    global always_true
+    if always_true:
         return True
     else:
-        if user_input in ['n', 'no']:
-            return False
+        user_input = input(f'{question} [y/n/a]: ').lower()
+        if user_input in ['y', 'yes']:
+            return True
         else:
-            print("Invalid response, try again.")
-            return ask(question)
+            if user_input in ['n', 'no']:
+                return False
+            else:
+                if user_input in ['a', 'all']:
+                    always_true = True
+                    return True
+                else:
+                    print("Invalid response, try again.")
+                return ask(question)
 
 
 def logo():
