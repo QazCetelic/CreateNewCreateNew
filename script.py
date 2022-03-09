@@ -66,7 +66,7 @@ def add(name, file_type, icon, group=""):
 
     new_lines.append("[Desktop Entry]")
     new_lines.append(f"Name={name}...")
-    new_lines.append(f"Comment=Create a new {snake_case_name} file using the .{file_type} format.")
+    new_lines.append(f"Comment=Create a new {name} file using the .{file_type} format.")
     new_lines.append("Type=Link")
     if group == "":
         new_lines.append(f"URL=template-files/{snake_case_name}-template.{file_type}")
