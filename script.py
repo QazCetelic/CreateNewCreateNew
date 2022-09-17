@@ -61,7 +61,7 @@ files = glob.glob(folder_path + "*.desktop")
 
 def add(name, file_type, icon, group=""):
     snake_case_name = name.lower().replace(" ", "-")
-    type = (file_type == "") if "folder" else "file"
+    type = ["file", "folder"][file_type == ""]
     suffix = f".{file_type}"
     if type == "folder":
         suffix = ""
@@ -144,19 +144,14 @@ if ask("Would you like to add templates for Microsoft office?"):
     add("Microsoft Powerpoint", "pptx", "x-office-presentation", "msoffice")
     add("Microsoft Excel", "xlsx", "x-office-spreadsheet", "msoffice")
 
-# Markdown
 add("Markdown", "md", "text-markdown")
-# Vector Drawing (Inkscape)
 add("Vector Drawing", "svg", "image-x-svg+xml")
 
-# Scripting
 if ask("Would you like to add templates for scripting?"):
-    # Shell script
     add("Shell Script", "sh", "application-x-shellscript")
-    # Python script
     add("Python Script", "py", "text-x-python")
 
 # Code
 if ask("Would you like to add templates for Haxe?"):
-    # Haxe
     add("Haxe", "", "text-plain")
+    add("Vala", "", "text-plain")
