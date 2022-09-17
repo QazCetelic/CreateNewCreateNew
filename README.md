@@ -11,3 +11,6 @@ https://user-images.githubusercontent.com/51381523/146176048-7a175418-1e9c-4248-
 - Microsoft Office 
 - Inkscape file 
 - Markdown
+- Shell script
+- Python script
+- Haxe Project

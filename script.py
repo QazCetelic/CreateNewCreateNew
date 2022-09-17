@@ -61,17 +61,21 @@ files = glob.glob(folder_path + "*.desktop")
 
 def add(name, file_type, icon, group=""):
     snake_case_name = name.lower().replace(" ", "-")
+    type = (file_type == "") if "folder" else "file"
+    suffix = f".{file_type}"
+    if type == "folder":
+        suffix = ""
 
     new_lines: [str] = []
 
     new_lines.append("[Desktop Entry]")
     new_lines.append(f"Name={name}...")
-    new_lines.append(f"Comment=Create a new {name} file using the .{file_type} format.")
+    new_lines.append(f"Comment=Create a new {name} {type}.")
     new_lines.append("Type=Link")
     if group == "":
-        new_lines.append(f"URL=template-files/{snake_case_name}-template.{file_type}")
+        new_lines.append(f"URL=template-files/{snake_case_name}-template{suffix}")
     else:
-        new_lines.append(f"URL=template-files/{group}/{snake_case_name}-template.{file_type}")
+        new_lines.append(f"URL=template-files/{group}/{snake_case_name}-template{suffix}")
     new_lines.append(f"Icon={icon}")
     new_lines.append("generated=true")
 
@@ -151,3 +155,8 @@ if ask("Would you like to add templates for scripting?"):
     add("Shell Script", "sh", "application-x-shellscript")
     # Python script
     add("Python Script", "py", "text-x-python")
+
+# Code
+if ask("Would you like to add templates for Haxe?"):
+    # Haxe
+    add("Haxe", "", "text-plain")
