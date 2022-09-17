@@ -18,7 +18,7 @@ def copy_and_overwrite(from_path, to_path):
 
 always_true = False
 
-def ask(question):
+def ask(question: str):
     global always_true
     if always_true:
         return True
@@ -59,14 +59,12 @@ folder_path = str(Path.home()) + "/.local/share/templates/"
 files = glob.glob(folder_path + "*.desktop")
 
 
-def add(name, file_type, icon, group=""):
+def add(name: str, file_type: str, icon: str, group=""):
     snake_case_name = name.lower().replace(" ", "-")
     type = ["file", "folder"][file_type == ""]
-    suffix = f".{file_type}"
-    if type == "folder":
-        suffix = ""
+    suffix = [f".{file_type}", ""][type == "folder"]
 
-    new_lines: [str] = []
+    new_lines: list[str] = []
 
     new_lines.append("[Desktop Entry]")
     new_lines.append(f"Name={name}...")
