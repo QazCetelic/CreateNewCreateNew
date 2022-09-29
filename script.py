@@ -151,5 +151,5 @@ if ask("Would you like to add templates for scripting?"):
 
 # Code
 if ask("Would you like to add templates for Haxe?"):
-    add("Haxe", "", "text-plain")
-    add("Vala", "", "text-plain")
+    add("Haxe Project", "", "folder-new")
+    add("Vala Project", "", "folder-new")
