@@ -5,7 +5,7 @@ from pathlib import Path
 
 # CreateNewCreateNew
 # Easily and quickly create new entries into the "Create New" file menu on Linux desktops.
-# Scroll down templates section to see add your own templates.
+# Scroll down to the templates section to add your own templates to the script.
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
