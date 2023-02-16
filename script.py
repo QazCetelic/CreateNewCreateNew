@@ -55,7 +55,7 @@ def logo():
     print("""   `---`    '---'          `----'               """)
 
 
-folder_path = str(Path.home()) + "/.local/share/templates/"
+folder_path = str(Path.home()) + "/Templates/"
 files = glob.glob(folder_path + "*.desktop")
 
 
